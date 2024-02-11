@@ -1,4 +1,5 @@
 {
+  "plugins": ["unused-imports"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
@@ -10,9 +11,9 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["unused-imports", "strict-dependencies"],
   "rules": {
     "unused-imports/no-unused-imports": "error",
+    "react/jsx-sort-props": "error",
     "import/order": [
       "error",
       {
@@ -29,14 +30,6 @@
         "alphabetize": {
           "order": "asc"
         }
-      }
-    ],
-    "react/jsx-sort-props": "error",
-    "strict-dependencies/strict-dependencies": [
-      "error",
-      [],
-      {
-        "resolveRelativeImport": true
       }
     ]
   }
