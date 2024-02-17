@@ -5,8 +5,8 @@
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode", // Prettierをフォーマッターとして設定
   "editor.formatOnSave": true, // ファイル保存時にフォーマットする
-  "markuplint.enable": true, // Markuplintを有効化する
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "cSpell.words": ["tdnizer"]
 }
