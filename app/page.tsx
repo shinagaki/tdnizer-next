@@ -2,12 +2,7 @@
 
 import { useState } from 'react';
 
-interface Result {
-  id: number;
-  name: string;
-  tdn: string;
-  kana: string;
-}
+import { Result } from '@/utils/interface';
 
 export default function Home() {
   const [results, setResults] = useState<Result[]>([]);
@@ -38,7 +33,7 @@ export default function Home() {
         <ul className="bg-blue-200" id="result">
           {results.map((result, index) => (
             <li className="m-4" key={index}>
-              <h2 className="text-lg font-bold">{result.nameTdn}</h2>
+              <h2 className="text-lg font-bold">{result.tdn}</h2>
               <p>{result.name}</p>
             </li>
           ))}
