@@ -1,7 +1,7 @@
 import { supabase } from '@/utils/supabase';
 
 export const getTdn = async (keyword: string) => {
-  console.log('supabase access');
+  console.log('supabase access:', keyword);
   const { data, error, status, count } = await supabase
     .from('tdn')
     .select('id,name,tdn,kana', { count: 'exact' })

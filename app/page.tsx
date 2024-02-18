@@ -5,27 +5,32 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { Result } from '@/utils/interface';
+import { useDebounce } from '@/utils/useDebounce';
 
 export default function Home() {
   const [results, setResults] = useState<Result[]>([]);
   const [totalCount, setTotalCount] = useState<number>(-1);
   const maxCount = 100;
+  const { debounce } = useDebounce(500);
 
   const handleChange = (e: { target: { value: string } }) => {
-    const hankakuToZenkaku = (str: string) => {
-      return str.replace(/[Ａ-Ｚａ-ｚ]/g, (s: string) => {
-        return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
+    debounce(() => {
+      const hankakuToZenkaku = (str: string) => {
+        return str.replace(/[Ａ-Ｚａ-ｚ]/g, (s: string) => {
+          return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
+        });
+      };
+      const keyword = hankakuToZenkaku(e.target.value).replace(/[^a-z]/gi, '');
+      e.target.value = keyword;
+      fetchData(keyword).catch((error) => {
+        console.error(error);
       });
-    };
-    const keyword = hankakuToZenkaku(e.target.value).replace(/[^a-z]/gi, '');
-    e.target.value = keyword;
-    fetchData(keyword).catch((error) => {
-      console.error(error);
     });
   };
   const fetchData = async (keyword: string) => {
-    const res = await fetch(`/api/tdn?k=${keyword}`, { cache: 'no-store' });
+    // const res = await fetch(`/api/tdn?k=${keyword}`, { cache: 'no-store' });
     // const res = await fetch(`/api/tdn?k=${keyword}`, { cache: 'force-cache' });
+    const res = await fetch(`/api/tdn?k=${keyword}`, { cache: 'force-cache', next: { revalidate: 3600 } });
 
     const data = (await res.json()) as {
       results: Result[];
