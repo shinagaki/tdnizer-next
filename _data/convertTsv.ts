@@ -20,7 +20,7 @@ const records = parse(dataset, {
 });
 
 const hiraganaToKatakata = (str: string) => {
-  return str.replace(/[\u3041-\u3096]/g, function (s: string) {
+  return str.replace(/[\u3041-\u3096]/g, (s: string) => {
     return String.fromCharCode(s.charCodeAt(0) + 0x60);
   });
 };
